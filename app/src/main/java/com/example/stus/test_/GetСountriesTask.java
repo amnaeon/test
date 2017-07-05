@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.stus.test_.activitys.MainActivity;
+import com.example.stus.test_.interfaces.IOnTaskSuccess;
 import com.example.stus.test_.models.CountryModel;
 
 import org.json.JSONException;
@@ -12,9 +13,10 @@ import org.json.JSONObject;
 
 import java.util.Iterator;
 
-public class GetCountrysTask extends AsyncTask<Void, Void, Void> {
+public class GetСountriesTask extends AsyncTask<Void, Void, Void> {
     private String TAG = MainActivity.class.getSimpleName();
     private ProgressDialog pDialog;
+    private IOnTaskSuccess onTaskSuccess;
 
     @Override
     protected void onPreExecute() {
@@ -62,6 +64,11 @@ public class GetCountrysTask extends AsyncTask<Void, Void, Void> {
         super.onPostExecute(result);
         if (pDialog.isShowing())
             pDialog.dismiss();
+        onTaskSuccess.onTaskSuccess();
 
+    }
+
+    public void setOnTaskSuccess(IOnTaskSuccess onTaskSuccess) {
+        this.onTaskSuccess = onTaskSuccess;
     }
 }
